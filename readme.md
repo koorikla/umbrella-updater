@@ -1,6 +1,6 @@
 # Helm Dependency Updater
 
-This script automates the process of updating Helm chart dependencies to their latest versions safer.
+This script automates the process of updating Helm chart dependencies to their latest versions safely.
 
 ## Prerequisites
 
