@@ -10,7 +10,31 @@ This script automates the process of updating Helm chart dependencies to their l
 - [Helm](https://helm.sh/docs/intro/install/)
 - [yq] (`brew install yq`)
 
-## Usage
+## use
+
+1. Clone this repository or create own `Chart.yaml` file
+
+   ```shell
+   git clone https://github.com/koorikla/umbrella-updater.git
+
+2. Change to the cloned directory:
+
+   ```shell
+   cd umbrella-updater
+
+3. Pull the Docker image from Docker Hub:
+
+   ```shell
+   docker pull koorikla/umbrella-updater:latest
+
+4. Run the following command to run the script:
+
+   ```shell
+
+docker run -v ./charts/app/Chart.yaml:/usr/local/bin/charts/app/Chart.yaml -v ./temp:/usr/local/bin/temp koorikla/umbrella-updater:latest
+
+
+## Building
 
 1. Clone this repository:
 
