@@ -8,7 +8,7 @@ This script automates the process of updating Helm chart dependencies to their l
 
 ### Local Development
 - [Helm](https://helm.sh/docs/intro/install/)
-- [yq] (brew install yq)
+- [yq](`brew install yq`)
 
 ## Usage
 
