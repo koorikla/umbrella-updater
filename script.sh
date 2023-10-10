@@ -127,5 +127,6 @@ if [[ "$diff_output" != "" ]]; then
   echo "run vimdiff $UMBRELLA_DIR/temp/values-current.yaml $UMBRELLA_DIR/temp/values-new.yaml to see the differences"
 fi
 
-# # Cleanup
-# rm -rf ./temp
+
+# Optionally, clean up temporary files:
+echo "To cleanup temp files run rm -rf ./temp " 
