@@ -28,7 +28,8 @@ done
 
 # Step 2: Run helm repo update and download current dependencies
 helm repo update
-helm dependency update
+echo "Downloading current version chart"
+helm dependency update > /dev/null 2>&1
 
 # Step 3: Untar and copy the current chart's dependencies values file contents
 # Saving to values-current.yaml in the script's temp directory
@@ -86,8 +87,8 @@ done
 
 
 # Step 5: Run helm dependency upgrade
-helm dependency update
-
+echo "Downloading latest version(s) of the chart"
+helm dependency update > /dev/null 2>&1
 
 # Step 6: Similar logic to Step 3, but save to values-new.yaml in the script's temp directory
 
