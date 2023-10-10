@@ -17,7 +17,7 @@ for ((i=0; i<$dependency_count; i++)); do
 done
 
 
-# Step 2: Run helm repo update
+# Step 2: Run helm repo update and download current dependencies
 helm repo update
 helm dependency update
 
