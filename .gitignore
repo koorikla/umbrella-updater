@@ -1,4 +1,4 @@
 temp
 charts/app/charts
 charts/app/Chart.yaml
-# charts/app/Chart.lock
+charts/app/Chart.lock
