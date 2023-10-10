@@ -12,7 +12,7 @@ This script automates the process of updating Helm chart dependencies to their l
 
 ## use
 
-1. Clone this repository or create own `Chart.yaml` file
+1. Clone this repository (or create own `./charts/app/Chart.yaml` file and skip to step 4)
 
    ```shell
    git clone https://github.com/koorikla/umbrella-updater.git
@@ -30,8 +30,7 @@ This script automates the process of updating Helm chart dependencies to their l
 4. Run the following command to run the script:
 
    ```shell
-
-docker run -v ./charts/app/Chart.yaml:/usr/local/bin/charts/app/Chart.yaml -v ./temp:/usr/local/bin/temp koorikla/umbrella-updater:latest
+    docker run -v ./charts/app/Chart.yaml:/usr/local/bin/charts/app/Chart.yaml -v ./temp:/usr/local/bin/temp koorikla/umbrella-updater:latest
 
 
 ## Building
@@ -58,4 +57,4 @@ docker run -v ./charts/app/Chart.yaml:/usr/local/bin/charts/app/Chart.yaml -v ./
 
 The script will add the Helm repositories specified in Chart.yaml, update the repositories, download the latest dependencies, and generate values-current.yaml and values-new.yaml files in the temp directory.
 
-### If there are differences between the current and new values files, the script will print a warning.
+### If there are differences between the current and new values files, the script will print a warning or show a diff between old and new possible options.
