@@ -3,6 +3,15 @@
 # Set the umbrella chart directory
 UMBRELLA_DIR="./charts/app"
 
+# Get the script's directory
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Set the output path for values-current.yaml
+OUTPUT_PATH="$SCRIPT_DIR/temp/values-current.yaml"
+
+# Set the output path for values-new.yaml
+VALUES_NEW_PATH="$SCRIPT_DIR/temp/values-new.yaml"
+
 # Change to the umbrella chart directory
 cd "$UMBRELLA_DIR"
 
@@ -24,14 +33,8 @@ helm dependency update
 # Step 3: Untar and copy the current chart's dependencies values file contents
 # Saving to values-current.yaml in the script's temp directory
 
-# Get the script's directory
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
 # Ensure the temp directory exists
 mkdir -p "$SCRIPT_DIR/temp"
-
-# Set the output path for values-current.yaml
-OUTPUT_PATH="$SCRIPT_DIR/temp/values-current.yaml"
 touch "$OUTPUT_PATH"
 
 for FILE_PATH in charts/*.tgz; do
@@ -88,8 +91,6 @@ helm dependency update
 
 # Step 6: Similar logic to Step 3, but save to values-new.yaml in the script's temp directory
 
-# Set the output path for values-new.yaml
-VALUES_NEW_PATH="$SCRIPT_DIR/temp/values-new.yaml"
 touch "$VALUES_NEW_PATH"
 
 for FILE_PATH in charts/*.tgz; do
