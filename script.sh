@@ -122,11 +122,11 @@ rm temp_values.yaml
 
 
 # Step 7: Diff the generated values files
-diff_output=$(diff ./temp/values-current.yaml ./temp/values-new.yaml)
+diff_output=$(diff $OUTPUT_PATH $VALUES_NEW_PATH)
 if [[ "$diff_output" != "" ]]; then
   echo "Warning: Differences detected between values-current.yaml and values-new.yaml!"
   # echo "$diff_output"
-  echo "run vimdiff $UMBRELLA_DIR/temp/values-current.yaml $UMBRELLA_DIR/temp/values-new.yaml to see the differences"
+  echo "run vimdiff $OUTPUT_PATH $VALUES_NEW_PATH to see the differences"
 fi
 
 
