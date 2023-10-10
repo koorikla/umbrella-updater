@@ -82,9 +82,9 @@ for ((i=0; i<$dependency_count; i++)); do
 done
 
 
-
 # Step 5: Run helm dependency upgrade
 helm dependency update
+
 
 # Step 6: Similar logic to Step 3, but save to values-new.yaml in the script's temp directory
 

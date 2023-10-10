@@ -1,22 +1,27 @@
 # Helm Dependency Updater
 
-This script automates the process of updating Helm chart dependencies to their latest versions.
+This script automates the process of updating Helm chart dependencies to their latest versions safer.
 
 ## Prerequisites
 
 - [Docker](https://www.docker.com/)
+
+### Local Development
+- [Helm](https://helm.sh/docs/intro/install/)
+- [yq] (brew install yq)
+-
 
 ## Usage
 
 1. Clone this repository:
 
    ```shell
-   git clone https://github.com/your-username/helm-dependency-updater.git
+   git clone https://github.com/koorikla/umbrella-updater.git
 
 2. Change to the cloned directory:
 
    ```shell
-   cd helm-dependency-updater
+   cd umbrella-updater
 
 3. Run the following command to build the Docker image:
 
