@@ -26,7 +26,7 @@ This script automates the process of updating Helm chart dependencies to their l
 4. Run the following command to update the dependencies:
 
    ```shell
-   docker run -v ./charts/app/Chart.yaml:/usr/local/bin/Chart.yaml -v ./temp:/usr/local/bin/temp umbrella-updater   
+   docker run -v ./charts/app/Chart.yaml:/usr/local/bin/charts/app/Chart.yaml -v ./temp:/usr/local/bin/temp umbrella-updater   
 
 
 The script will add the Helm repositories specified in Chart.yaml, update the repositories, download the latest dependencies, and generate values-current.yaml and values-new.yaml files in the temp directory.
