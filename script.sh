@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# Set the umbrella chart directory
+# Set the umbrella chart directory containing Chart.yaml
 UMBRELLA_DIR="./charts/app"
 
 # Get the script's directory
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/temp"
 
 # Set the output path for values-current.yaml
-OUTPUT_PATH="$SCRIPT_DIR/temp/values-current.yaml"
+VALUES_CURRENT_PATH="$SCRIPT_DIR/values-current.yaml"
 
 # Set the output path for values-new.yaml
-VALUES_NEW_PATH="$SCRIPT_DIR/temp/values-new.yaml"
+VALUES_NEW_PATH="$SCRIPT_DIR/values-new.yaml"
 
 # Change to the umbrella chart directory
 cd "$UMBRELLA_DIR"
@@ -35,8 +35,13 @@ helm dependency update > /dev/null 2>&1
 # Saving to values-current.yaml in the script's temp directory
 
 # Ensure the temp directory exists
-mkdir -p "$SCRIPT_DIR/temp"
-touch "$OUTPUT_PATH"
+mkdir -p "$SCRIPT_DIR"
+
+# Esure a clean file values-current.yaml
+if [[ -f "$VALUES_CURRENT_PATH" ]]; then
+    rm "$VALUES_CURRENT_PATH"
+fi
+touch "$VALUES_CURRENT_PATH"
 
 for FILE_PATH in charts/*.tgz; do
   # Extract the dependency name from the file name
@@ -51,9 +56,9 @@ for FILE_PATH in charts/*.tgz; do
   sed 's/^/  /' "charts/$DEP/values.yaml" > temp_values.yaml
 
   # Ensure the dependency block exists in values.yaml, then merge the contents
-  echo "$DEP:" >> "$OUTPUT_PATH"
-  cat temp_values.yaml >> "$OUTPUT_PATH"
-  echo "" >> "$OUTPUT_PATH"  # Optional: Add a blank line between sections for readability
+  echo "$DEP:" >> "$VALUES_CURRENT_PATH"
+  cat temp_values.yaml >> "$VALUES_CURRENT_PATH"
+  echo "" >> "$VALUES_CURRENT_PATH"  # Optional: Add a blank line between sections for readability
 
   # Remove the  untarred dependency folders
   rm -rf "charts/$DEP"
@@ -90,8 +95,12 @@ done
 echo "Downloading latest version(s) of the chart"
 helm dependency update > /dev/null 2>&1
 
-# Step 6: Similar logic to Step 3, but save to values-new.yaml in the script's temp directory
+# Step 6: Similar logic to Step 3, but save values-new.yaml to compare it with the current version
 
+# Esure a clean file values-new.yaml
+if [[ -f "$VALUES_NEW_PATH" ]]; then
+    rm "$VALUES_NEW_PATH"
+fi
 touch "$VALUES_NEW_PATH"
 
 for FILE_PATH in charts/*.tgz; do
@@ -122,11 +131,17 @@ rm temp_values.yaml
 
 
 # Step 7: Diff the generated values files
-diff_output=$(diff $OUTPUT_PATH $VALUES_NEW_PATH)
+diff_output=$(diff $VALUES_CURRENT_PATH $VALUES_NEW_PATH)
 if [[ "$diff_output" != "" ]]; then
-  echo "Warning: Differences detected between values-current.yaml and values-new.yaml!"
+
+  echo "-----------------------------------------------------------------------------------------"
+  echo "WARNING!!: Differences detected between values-current.yaml and values-new.yaml!"
+  echo ""
+  echo "run vimdiff $VALUES_CURRENT_PATH $VALUES_NEW_PATH to check for possible breaking changes"
+  echo ""  
+  echo "-----------------------------------------------------------------------------------------"
   # echo "$diff_output"
-  echo "run vimdiff $OUTPUT_PATH $VALUES_NEW_PATH to see the differences"
+
 fi
 
 
