@@ -65,6 +65,8 @@ for FILE_PATH in charts/*.tgz; do
 
 done
 
+# Clean up temporary files:
+rm temp_values.yaml
 
 # Step 4: Search helm repos for the latest versions for the dependencies from Chart.yaml
 
@@ -126,7 +128,7 @@ for FILE_PATH in charts/*.tgz; do
 
 done
 
-# Optionally, clean up temporary files:
+# Clean up temporary files:
 rm temp_values.yaml
 
 
@@ -137,7 +139,10 @@ if [[ "$diff_output" != "" ]]; then
   echo "-----------------------------------------------------------------------------------------"
   echo "WARNING!!: Differences detected between values-current.yaml and values-new.yaml!"
   echo ""
-  echo "run vimdiff $VALUES_CURRENT_PATH $VALUES_NEW_PATH to check for possible breaking changes"
+  echo "This may indicate breaking changes in the new version of the chart(s)."
+  echo "Compare the new and old configuration options and make any necessary changes if needed."
+  echo ""  
+  echo "vimdiff $VALUES_CURRENT_PATH $VALUES_NEW_PATH"
   echo ""  
   echo "-----------------------------------------------------------------------------------------"
   # echo "$diff_output"
@@ -146,4 +151,5 @@ fi
 
 
 # Optionally, clean up temporary files:
-echo "To cleanup temp files run rm -rf ./temp " 
+echo ""
+echo "To cleanup temp files run rm -rf $SCRIPT_DIR" 
