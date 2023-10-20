@@ -1,6 +1,6 @@
-# Helm Dependency Updater
+# Helm dependency updater
 
-This script automates the process of updating Helm chart dependencies to their latest versions safely.
+This script automates the process of updating Helm chart dependencies to their latest versions safely via comparing upstream chart default values.yaml files
 
 ## Prerequisites
 
